@@ -1,0 +1,30 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: routes
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  app:
+    build: ./src
+    ports:
+      - "8080:8080"
+    volumes:
+      - go:/app
+    depends_on:
+      - mysql
+
+volumes:
+  go:
+    driver: local
+  mysql:
+    driver: local
