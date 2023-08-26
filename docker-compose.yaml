@@ -1,7 +1,7 @@
 version: "3"
 services:
   mysql:
-    image: mysql:8
+    image: mysql:8.0.30-debian
     container_name: mysql
     restart: always
     environment:
@@ -10,7 +10,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - mysql:/var/lib/mysql
+      - mysql-go:/var/lib/mysql
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -26,5 +26,5 @@ services:
 volumes:
   go:
     driver: local
-  mysql:
+  mysql-go:
     driver: local
